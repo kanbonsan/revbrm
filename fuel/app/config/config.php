@@ -142,7 +142,7 @@ return array(
 	 *  The default language.
 	 */
 
-	// 'language' => 'en',
+	'language' => 'ja',
 
 	/**
 	 *  Fallback language when file isn't available for default language.
@@ -154,7 +154,7 @@ return array(
 	 *  PHP set_locale() setting. Use null to not set.
 	 */
 
-	// 'locale' => 'en_US',
+	'locale' => 'ja_JP.UTF-8',
 
 	/**
 	 * -------------------------------------------------------------------------
@@ -180,7 +180,7 @@ return array(
 	 *  Change the server's default timezone. This is optional.
 	 */
 
-	// 'default_timezone' => null,
+	 'default_timezone' => 'Asia/Tokyo',
 
 	/**
 	 * -------------------------------------------------------------------------
@@ -228,7 +228,7 @@ return array(
 		 * ---------------------------------------------------------------------
 		 */
 
-		// 'token_salt' => 'put your salt value here to make the token more secure',
+		 'token_salt' => 'dieoshdaohboihadpe/ohd929#(DF',
 
 		/**
 		 * ---------------------------------------------------------------------
