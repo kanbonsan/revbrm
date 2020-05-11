@@ -18,13 +18,13 @@
     </div>
     <div id="wrapper" class="clearfix">
         <div id="left">
-            <?php echo $left; ?>
+left
         </div>
         <div id="main">
-            <?php echo $main; ?>
+main
         </div>
         <div id="right">
-            <?php echo $right; ?>
+right
         </div>
         <div id="sep_vertical"></div>
     </div>
