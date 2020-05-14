@@ -4,12 +4,10 @@
     "description" : "FuelPHP is a simple, flexible, community driven PHP 5.4+ framework, based on the best ideas of other frameworks, with a fresh start!",
     "keywords": ["application", "website", "development", "framework", "PHP", "PHP7"],
     "license": "MIT",
-    "repositories": {
-        "kanbonsan/google-map-polyline-encoding-expansion": {
-            "type":"vcs",
-            "url":"https://github.com/kanbonsan/google-map-polyline-encoding-expansion"
-        }
-    },
+    "repositories": [{
+        "type":"vcs",
+        "url":"https://github.com/kanbonsan/google-map-polyline-encoding-expansion"
+    }],
     "require": {
         "php": ">=5.4",
         "composer/installers": "~1.0",
@@ -22,7 +20,7 @@
         "fuelphp/upload": "2.0.6",
         "gajus/dindent": "2.0.*",
         "emcconville/google-map-polyline-encoding-tool" : ">=1.2.1",
-        "kannbonsan/google-map-polyline-encoding-expansion" : "*"
+        "kanbonsan/google-map-polyline-encoding-expansion" : "dev-master"
     },
     "require-dev": {
         "fuel/docs": "1.8.*",

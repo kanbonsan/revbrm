@@ -24,6 +24,13 @@ class Controller_Main extends \Fuel\Core\Controller_Template
     }
 	
 	public function Action_Index(){
+		
+		$encoded = "mibvEqc{cY@]sF?cBqE?cEmGa|`JyDv@ovAoCcAwdHuA{BwxWVmE~aTs@gBfkPwBK~bBaDv@neGwCtCffFoDtC~nKmBr@v|A[cFvQv@{GohCVqE_`Ft@qE_X|FbD_|BxFlAozDnJpCgtD[hEggM|@vDwyEpBtCnzDfDvFnjQpBhEx~tIjAjF?H`G?y@fD?";
+		
+		$paths = \kanbonsan\PolylineExpansion::decode($encoded);
+		
+		DEBUG::dump($paths);
+		
 		echo "HELLO SHUICHI";
 	}
 }
