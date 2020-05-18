@@ -19,8 +19,7 @@
         "fuel/parser": "1.8.*",
         "fuelphp/upload": "2.0.6",
         "gajus/dindent": "2.0.*",
-        "emcconville/google-map-polyline-encoding-tool" : ">=1.2.1",
-        "kanbonsan/google-map-polyline-encoding-expansion" : "dev-master"
+        "kanbonsan/google-map-polyline-encoding-expansion" : ">=1.0.0"
     },
     "require-dev": {
         "fuel/docs": "1.8.*",
