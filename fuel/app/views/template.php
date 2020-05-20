@@ -17,16 +17,10 @@
         <?php echo $header; ?>
     </div>
     <div id="wrapper" class="clearfix">
-        <div id="left">
-left
-        </div>
+
         <div id="main">
-main
+			<?php echo $main; ?>
         </div>
-        <div id="right">
-right
-        </div>
-        <div id="sep_vertical"></div>
     </div>
     <div id="footer">
         <?php echo $footer; ?>
