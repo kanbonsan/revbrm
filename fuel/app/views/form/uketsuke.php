@@ -2,7 +2,11 @@
 <?php echo $html_error; ?>
 <?php endif; ?>
 <p>brmファイル読み込み</p>
-<?php echo Form::open('/confirm'); ?>
+<?php echo Form::open(array('action'=>'main/confirm', 'enctype'=>'multipart/form-data')); ?>
+<p>
+	<?php echo Form::label('名称','brmname'); ?>
+	<?php echo Form::input('brmname'); ?>
+</p>
 <p>
 	<?php echo Form::label('ファイル', 'brmfile'); ?>
 	<?php echo Form::file('brmfile'); ?>

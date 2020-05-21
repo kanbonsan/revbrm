@@ -28,6 +28,31 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		$this->template->main = View::forge('form/uketsuke');
 	}
 
+	public function Action_Confirm(){
+		
+		$config = array(
+			'max_size' => 10 * 1024 * 1024,	// 10Mb
+			'ext_whitelist' => array('brm', 'brm.gz', 'xls', 'xlsx'),
+			'path' => APPPATH . '/brmfiles',
+			'randomize'=>true,
+		);
+
+		Upload::process( $config );
+		
+		if( Upload::is_valid()){
+			$this->template->main = 'confirmed';
+			Upload::save();
+			Debug::dump( Upload::get_files());
+		} else {
+			$this->template->main = 'bad files';
+		}
+		
+		
+		
+	}
+	
+	
+	
 	public function Action_Test(){
 		
 		$encoded = "mibvEqc{cY@]sF?cBqE?cEmGa|`JyDv@ovAoCcAwdHuA{BwxWVmE~aTs@gBfkPwBK~bBaDv@neGwCtCffFoDtC~nKmBr@v|A[cFvQv@{GohCVqE_`Ft@qE_X|FbD_|BxFlAozDnJpCgtD[hEggM|@vDwyEpBtCnzDfDvFnjQpBhEx~tIjAjF?H`G?y@fD?";
