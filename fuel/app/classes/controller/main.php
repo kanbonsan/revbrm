@@ -32,26 +32,43 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 		$config = array(
 			'max_size' => 10 * 1024 * 1024,	// 10Mb
-			'ext_whitelist' => array('brm', 'brm.gz', 'xls', 'xlsx'),
+			'ext_whitelist' => array('brm', 'brz', 'gz', 'xls', 'xlsx'),
 			'path' => APPPATH . '/brmfiles',
 			'randomize'=>true,
 		);
-
+		
 		Upload::process( $config );
 		
-		if( Upload::is_valid()){
-			$this->template->main = 'confirmed';
-			Upload::save();
-			Debug::dump( Upload::get_files());
+		$val = Validation::forge();
+		$val->add('brmname', 'ブルベ名')
+			->add_rule('trim')
+			->add_rule('required');
+		
+		if($val->run()){
+		
+			Debug::dump($val->error());
 		} else {
-			$this->template->main = 'bad files';
+			$this->template->main = View::forge('form/uketsuke');
+			//$this->template->main->set_safe('html_error', $val->show_errors());
+			Debug::dump($val->error_message());
 		}
+		
+		
+//		
+//		if( Upload::is_valid()){
+//			$this->template->main = 'confirmed';
+//			Upload::save();
+//			Debug::dump( Upload::get_files());
+//		} else {
+//			$this->template->main = 'bad files';
+//		}
+	}
+	
+	public function Action_Download(){
 		
 		
 		
 	}
-	
-	
 	
 	public function Action_Test(){
 		
