@@ -46,9 +46,6 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		} else {
 			$this->template->main = 'bad files';
 		}
-		
-		
-		
 	}
 	
 	
