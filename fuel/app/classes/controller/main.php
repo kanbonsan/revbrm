@@ -70,7 +70,7 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 	}
 	
-	public function Action_Test(){
+	public function Action_EncodeTest(){
 		
 		$encoded = "mibvEqc{cY@]sF?cBqE?cEmGa|`JyDv@ovAoCcAwdHuA{BwxWVmE~aTs@gBfkPwBK~bBaDv@neGwCtCffFoDtC~nKmBr@v|A[cFvQv@{GohCVqE_`Ft@qE_X|FbD_|BxFlAozDnJpCgtD[hEggM|@vDwyEpBtCnzDfDvFnjQpBhEx~tIjAjF?H`G?y@fD?";
 		
@@ -79,4 +79,13 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 		echo "HELLO SHUICHI";
 	}
+	
+	public function Action_SessionTest(){
+		
+		Debug::dump( Session::instance() );
+		
+		$this->template->main = "SessionTest";
+		
+	}
+	
 }
