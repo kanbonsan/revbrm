@@ -30,7 +30,7 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 
 	public function Action_Confirm(){
 		
-		if(! Security::check_token()){
+		if(! Security::check_token() && false){
 			throw new HttpInvalidInputException('ページ遷移が違います.');
 		}
 		
@@ -59,10 +59,11 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 			$this->template->main = 'confirmed';
 			Upload::save();
 			$info = Upload::get_files();
-			Debug::dump( $info );
+			// Debug::dump( $info );
 			
-			Debug::dump(json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension'])));
-			
+			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']));
+            Debug::dump( $brm );
+			// $rev = Model_Brmfile::reverse( $brm );
 			
 		} else {
 			$this->template->main = 'bad files';
@@ -71,8 +72,8 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 	
 	public function Action_Download(){
 		
-		
-		
+		$response = Response::forge("aaa");
+		return $response;
 	}
 	
 	public function Action_EncodeTest(){
@@ -101,4 +102,18 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 	}
 	
+    public function Action_DatTest(){
+        
+        $brm = array(
+            'id'=>'brmid',
+            'brmName'=>'Hello Brm'
+        );
+        
+        Debug::dump( json_decode( json_encode( $brm )));
+        return new Response("aaa");
+        
+    }
+    
+    
+    
 }

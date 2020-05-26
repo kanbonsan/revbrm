@@ -22,5 +22,10 @@ class Model_Brmfile extends Model {
 		}
     }
 	
-    
+   public static function reverse( $brm_data ) {
+       
+       $rev = array();
+       
+   }
+   
 }
