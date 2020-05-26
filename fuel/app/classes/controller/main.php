@@ -30,6 +30,10 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 
 	public function Action_Confirm(){
 		
+		if(! Security::check_token()){
+			throw new HttpInvalidInputException('ページ遷移が違います.');
+		}
+		
 		$config = array(
 			'max_size' => 10 * 1024 * 1024,	// 10Mb
 			'ext_whitelist' => array('brm', 'brz', 'gz', 'xls', 'xlsx'),
@@ -44,24 +48,25 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 			->add_rule('trim')
 			->add_rule('required');
 		
-		if($val->run()){
+		if(! $val->run()){
 		
-			Debug::dump($val->error());
-		} else {
 			$this->template->main = View::forge('form/uketsuke');
-			//$this->template->main->set_safe('html_error', $val->show_errors());
-			Debug::dump($val->error_message());
+			$this->template->main->set_safe('html_error', $val->show_errors());
+
 		}
 		
-		
-//		
-//		if( Upload::is_valid()){
-//			$this->template->main = 'confirmed';
-//			Upload::save();
-//			Debug::dump( Upload::get_files());
-//		} else {
-//			$this->template->main = 'bad files';
-//		}
+		if( Upload::is_valid()){
+			$this->template->main = 'confirmed';
+			Upload::save();
+			$info = Upload::get_files();
+			Debug::dump( $info );
+			
+			Debug::dump(json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension'])));
+			
+			
+		} else {
+			$this->template->main = 'bad files';
+		}
 	}
 	
 	public function Action_Download(){
@@ -79,6 +84,14 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 		echo "HELLO SHUICHI";
 	}
+    
+    public function Action_ConfigTest(){
+        
+        Config::load( 'revbrm', true );
+        $this->template->main = '<div>'.Config::get('revbrm.test').'</div>';
+    }
+    
+    
 	
 	public function Action_SessionTest(){
 		

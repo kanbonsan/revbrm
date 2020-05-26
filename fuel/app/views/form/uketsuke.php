@@ -14,4 +14,5 @@
 <p>
 	<?php echo Form::reset('reset','取り消し'); ?><?php echo Form::submit('submit', '送信'); ?>
 </p>
+<?php echo Form::csrf(); ?>
 <?php echo Form::close(); ?>
