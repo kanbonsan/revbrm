@@ -61,9 +61,14 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 			$info = Upload::get_files();
 			// Debug::dump( $info );
 			
-			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']));
-            Debug::dump( $brm );
-			// $rev = Model_Brmfile::reverse( $brm );
+		
+			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']), true);	// json_decode() の２つ目の引数で array に
+			
+			if( isset($brm['aaa'])){
+				throw new Exception('おまへんで');
+			}
+            
+			$this->template->main = Model_Brmfile::brminfo($brm);
 			
 		} else {
 			$this->template->main = 'bad files';
