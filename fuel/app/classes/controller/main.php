@@ -61,9 +61,15 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 			$info = Upload::get_files();
 			// Debug::dump( $info );
 			
-			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']));
-            Debug::dump( $brm );
-			// $rev = Model_Brmfile::reverse( $brm );
+		
+			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']), true);	// json_decode() の２つ目の引数で array に
+			
+			$brm_disassembled = Model_brmfile::disassemble( $brm );
+           
+            Debug::dump( $brm_disassembled );
+            
+			$this->template->main = "disassembled";
+
 			
 		} else {
 			$this->template->main = 'bad files';
@@ -102,15 +108,9 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 	}
 	
-    public function Action_DatTest(){
+    public function Action_Test(){
         
-        $brm = array(
-            'id'=>'brmid',
-            'brmName'=>'Hello Brm'
-        );
-        
-        Debug::dump( json_decode( json_encode( $brm )));
-        return new Response("aaa");
+        $this->template->main = floor( microtime(true));
         
     }
     
