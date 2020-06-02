@@ -64,11 +64,11 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 			$brm = json_decode( Model_Brmfile::read( $info[0]["saved_to"].$info[0]['saved_as'], $info[0]['extension']), true);	// json_decode() の２つ目の引数で array に
 			
-			if( isset($brm['aaa'])){
-				throw new Exception('おまへんで');
-			}
+			$brm_disassembled = Model_brmfile::disassemble( $brm );
+           
+            Debug::dump( $brm_disassembled );
             
-			$this->template->main = Model_Brmfile::brminfo($brm);
+			$this->template->main = "disassembled";
 			
 		} else {
 			$this->template->main = 'bad files';

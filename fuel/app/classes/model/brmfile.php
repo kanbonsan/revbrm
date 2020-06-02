@@ -30,6 +30,31 @@ class Model_Brmfile extends Model {
 		return print_r( $brm, true );
 	}
 	
+    public static function disassemble( $brm ){
+        
+    $info = array(
+            'id' => $brm['id'],
+            'brmName' => $brm['brmName'],
+            'brmDistance' => $brm['brmDistance'],
+            'brmStartTime' => $brm['brmStartTime'],
+            'brmCurrentStartTime' => $brm['brmCurrentStartTime'],
+            'encodedPathAlt' => $brm['encodedPathAlt'],
+        );
+    $points = array();
+    $cues = array();
+    foreach ($brm['points'] as $idx => $pt)
+        {
+            $points[] = $pt;
+            if( $pt['cue'])
+            {
+                $pt['cue']['ptidx'] = $idx;
+                $cues[]=$pt['cue'];
+            }
+        }
+
+        return $cues;
+        
+    }
 	
 	public static function reverse( $brm_data ) {
        
@@ -40,7 +65,7 @@ class Model_Brmfile extends Model {
    public static function output( $brm_data ){
 	   
 	   return array(
-		   'id' => floor(microtime(true)),	'新しいID'
+		   'id' => floor(microtime(true)),	// '新しいID'
 		   'brmName' => '',
 		   'brmDistance' => '',
 		   'brmDate' => '',
