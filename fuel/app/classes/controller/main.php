@@ -107,15 +107,9 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 		
 	}
 	
-    public function Action_DatTest(){
+    public function Action_Test(){
         
-        $brm = array(
-            'id'=>'brmid',
-            'brmName'=>'Hello Brm'
-        );
-        
-        Debug::dump( json_decode( json_encode( $brm )));
-        return new Response("aaa");
+        $this->template->main = floor( microtime(true));
         
     }
     

@@ -37,4 +37,22 @@ class Model_Brmfile extends Model {
        
    }
    
+   public static function output( $brm_data ){
+	   
+	   return array(
+		   'id' => floor(microtime(true)),	'新しいID'
+		   'brmName' => '',
+		   'brmDistance' => '',
+		   'brmDate' => '',
+		   'brmStartTime' => array(),
+		   'brmCurrentStartTime' => '',
+		   'encodedPathAlt'=> '',
+		   'cueLength' => '',
+		   'points'=>array(),
+		   'exclude'=>array(),
+		   'display'=>array()
+	   );
+	   
+   }
+   
 }
