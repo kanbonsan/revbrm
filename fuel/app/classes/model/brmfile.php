@@ -30,32 +30,37 @@ class Model_Brmfile extends Model {
 		return print_r( $brm, true );
 	}
 	
-    public static function disassemble( $brm ){
-        
-    $info = array(
-            'id' => $brm['id'],
-            'brmName' => $brm['brmName'],
-            'brmDistance' => $brm['brmDistance'],
-            'brmStartTime' => $brm['brmStartTime'],
-            'brmCurrentStartTime' => $brm['brmCurrentStartTime'],
-            'encodedPathAlt' => $brm['encodedPathAlt'],
-        );
-    $points = array();
-    $cues = array();
-    foreach ($brm['points'] as $idx => $pt)
-        {
-            $points[] = $pt;
-            if( $pt['cue'])
-            {
-                $pt['cue']['ptidx'] = $idx;
-                $cues[]=$pt['cue'];
-            }
-        }
+    public static function disassemble($brm)
+	{
 
-        return $cues;
-        
-    }
-	
+		$info = array(
+			'id' => $brm['id'],
+			'brmName' => $brm['brmName'],
+			'brmDistance' => $brm['brmDistance'],
+			'brmStartTime' => $brm['brmStartTime'],
+			'brmCurrentStartTime' => $brm['brmCurrentStartTime'],
+			'encodedPathAlt' => $brm['encodedPathAlt'],
+		);
+		$points = array();
+		$cues = array();
+
+		foreach ($brm['points'] as $idx => $pt)
+		{
+			$points[] = $pt;
+			if ($pt['cue'])
+			{
+				$pt['cue']['ptidx'] = $idx;
+				$cues[] = $pt['cue'];
+			}
+		}
+
+		return array(
+			'info' => $info,
+			'points' => $point,
+			'cues' => $cues,
+		);
+	}
+
 	public static function reverse( $brm_data ) {
        
        $rev = array();
