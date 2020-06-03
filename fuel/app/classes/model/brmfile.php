@@ -53,11 +53,16 @@ class Model_Brmfile extends Model {
 				$cues[] = $pt['cue'];
 			}
 		}
+        
+        $exclude = $brm['exclude'];
+        $display = $brm['display'];
 
 		return array(
 			'info' => $info,
-			'points' => $point,
+			'points' => $points,
 			'cues' => $cues,
+            'exclude' => $exclude,
+            'display' => $display,
 		);
 	}
 
@@ -67,16 +72,18 @@ class Model_Brmfile extends Model {
        
    }
    
-   public static function output( $brm_data ){
+   public static function output( $brm_data, $brandnew = true ){
 	   
+       list($info,$points,$cues,$exclude,$display) = $brm_data;
+       
 	   return array(
-		   'id' => floor(microtime(true)),	// '新しいID'
-		   'brmName' => '',
-		   'brmDistance' => '',
-		   'brmDate' => '',
-		   'brmStartTime' => array(),
-		   'brmCurrentStartTime' => '',
-		   'encodedPathAlt'=> '',
+		   'id' => $brandnew ? floor(microtime(true)) : $info['id'],	// '新しいID'
+		   'brmName' => $info['brmName'],
+		   'brmDistance' => $info['brmDistance'],
+		   'brmDate' => $info['brmDate'],
+		   'brmStartTime' => $info['brmStartTime'],
+		   'brmCurrentStartTime' => $info['brmCurrentStartTime'],
+		   'encodedPathAlt'=> $info,
 		   'cueLength' => '',
 		   'points'=>array(),
 		   'exclude'=>array(),
