@@ -8,7 +8,14 @@
 
 class Model_Brmfile extends Model {
     
-    public static function read( $brmfile, $ext ){
+	/**
+	 * ローカルに保存された brmfile を読み込む。brmfile は BRMTOOL によって出力されたデータを json_encode したものと、それを gzip で固めたもの。
+	 * 
+	 * @param string $brmfile brmfile のファイル名（拡張子を含む）
+	 * @param string $ext 上記ファイルの拡張子（ファイル形式）
+	 * @return array json_decoded された brmfile の内容。配列で返す。$brm と表す。
+	 */
+	public static function read( $brmfile, $ext ){
         
         if( ! file_exists( $brmfile) ){
 			return false;
@@ -16,26 +23,29 @@ class Model_Brmfile extends Model {
 		
 		if( $ext == "gz" || $ext == "brz" ){	// gzip圧縮
             
-			return gzdecode( file_get_contents( $brmfile ));
+			return json_decode( gzdecode( file_get_contents( $brmfile )), true);
 		} else {
-			return file_get_contents( $brmfile );
+			return json_decode(file_get_contents( $brmfile ), true);
 		}
     }
 	
 	/**
-	 * ブルベ情報の生jsonを解析する
-	 * @param type $brm
+	 * brmfile データを分解する
+	 * @param array $brm json_decode されたデータ
+	 * @return array 各項目を分解した配列 $brm_data と表す
+	 *		'info' => ブルベ情報
+	 *		'points' => (array) 各ポイント情報
+	 *		'cues' => (array) pointsからキューポイントを抜き出したもの
+	 *		'exclude' => (array) 除外区間情報
+	 *		'display' => (array) ストリートビュー用のパラメーター
 	 */
-	public static function brminfo( $brm){
-		return print_r( $brm, true );
-	}
-	
     public static function disassemble($brm)
 	{
 
 		$info = array(
 			'id' => $brm['id'],
 			'brmName' => $brm['brmName'],
+			'brmDate' => $brm['brmDate'],
 			'brmDistance' => $brm['brmDistance'],
 			'brmStartTime' => $brm['brmStartTime'],
 			'brmCurrentStartTime' => $brm['brmCurrentStartTime'],
@@ -68,28 +78,47 @@ class Model_Brmfile extends Model {
 
 	public static function reverse( $brm_data ) {
        
-       $rev = array();
-       
-   }
-   
-   public static function output( $brm_data, $brandnew = true ){
-	   
-       list($info,$points,$cues,$exclude,$display) = $brm_data;
-       
-	   return array(
-		   'id' => $brandnew ? floor(microtime(true)) : $info['id'],	// '新しいID'
-		   'brmName' => $info['brmName'],
-		   'brmDistance' => $info['brmDistance'],
-		   'brmDate' => $info['brmDate'],
-		   'brmStartTime' => $info['brmStartTime'],
-		   'brmCurrentStartTime' => $info['brmCurrentStartTime'],
-		   'encodedPathAlt'=> $info,
-		   'cueLength' => '',
-		   'points'=>array(),
-		   'exclude'=>array(),
-		   'display'=>array()
+		
+		$info = $brm_data['info'];
+		$points = $brm_data['points'];
+		$cues = $brm_data['cues'];
+		$exclude = $brm_data['exclude'];
+		$display = $brm_data['display'];
+		$rev = array(
+		   'encodedPathAlt' => Kanbonsan\Polyline\Polyline::reverse( $info['encodedPathAlt']),
 	   );
+       
 	   
+	   return $rev;
    }
-   
+   /**
+    * 分解したブルベデータを brmfile にするために集める
+    * @param type $brm_data
+    * @param type $brandnew
+    * @return type
+    */
+   public static function assemble($brm_data, $brandnew = true)
+	{
+
+		$info = $brm_data['info'];
+		$points = $brm_data['points'];
+		$cues = $brm_data['cues'];
+		$exclude = $brm_data['exclude'];
+		$display = $brm_data['display'];
+
+		return array(
+			'id' => $brandnew ? floor(microtime(true)) : $info['id'], // '新しいID'
+			'brmName' => $info['brmName'],
+			'brmDistance' => $info['brmDistance'],
+			'brmDate' => $info['brmDate'],
+			'brmStartTime' => $info['brmStartTime'],
+			'brmCurrentStartTime' => $info['brmCurrentStartTime'],
+			'encodedPathAlt' => $info['encodedPathAlt'],
+			'cueLength' => count($cues),
+			'points' => $points,
+			'exclude' => $exclude,
+			'display' => $display
+		);
+	}
+
 }

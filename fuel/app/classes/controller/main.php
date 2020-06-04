@@ -67,8 +67,12 @@ class Controller_Main extends \Fuel\Core\Controller_Template
 			$brm_disassembled = Model_brmfile::disassemble( $brm );
            
             Debug::dump( $brm_disassembled );
+			
+			$brm_assembled = Model_brmfile::assemble( $brm_disassembled, false);
+			
+			Debug::dump($brm_assembled);
             
-			$this->template->main = "disassembled";
+			$this->template->main = "disassembled -> assembled";
 
 			
 		} else {
